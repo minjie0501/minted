@@ -9,6 +9,7 @@ import bodyParser from "body-parser";
 
 import { Product } from "./models/product.js";
 import productRouter from "./routes/productRoutes.js";
+import userRouter from "./routes/userRoutes.js";
 
 mongoose.connect(process.env.DATABASE_URL);
 const db = mongoose.connection;
@@ -20,5 +21,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use("/products", productRouter);
+app.use("/users", userRouter);
 
 app.listen(3000);

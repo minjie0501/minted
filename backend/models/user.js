@@ -1,18 +1,16 @@
 import mongoose from "mongoose";
 
-// NOTE: let the user upload pics later later later
-//NOTE: add seller later
-const productSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
-    title: {
+    name: {
       type: String,
       required: true,
     },
-    keywords: {
-      type: [String],
+    email: {
+      type: String,
       required: true,
     },
-    description: {
+    password: {
       type: String,
       required: true,
     },
@@ -24,4 +22,4 @@ const productSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const Product = mongoose.model("Product", productSchema);
+export const User = mongoose.model("User", userSchema);
