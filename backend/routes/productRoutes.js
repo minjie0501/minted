@@ -14,9 +14,18 @@ router.get("/", async (req, res) => {
   }
 });
 
+// Get product by id
+router.get("/:id", async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    res.status(200).send(product);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 // Create product
 router.post("/", async (req, res) => {
-  console.log(req.body);
   const product = new Product({
     title: req.body.title,
     keywords: req.body.keywords,
@@ -24,9 +33,33 @@ router.post("/", async (req, res) => {
   });
   try {
     const newProduct = await product.save();
-    res.send("gucci");
+    res.status(200).send(newProduct);
   } catch (error) {
-    console.log(error);
+    res.send(error);
+  }
+});
+
+// Update product route
+router.put("/:id", async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    product.title = req.body.title;
+    product.keywords = req.body.keywords;
+    product.description = req.body.description;
+    await product.save();
+    res.status(201).send(product)
+  } catch (error) {
+    res.send(error)
+  }
+});
+
+// Delete product
+router.delete("/:id", async (req, res) => {
+  try {
+    await Product.findByIdAndRemove(req.params.id);
+    res.status(200).send({ message: `Product successfully deleted with id: ${req.params.id}` });
+  } catch (error) {
+    res.send(error);
   }
 });
 
