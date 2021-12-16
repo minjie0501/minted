@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Get product by id NOTE: add -> i also want the some info of the seller (populate?)
+// Get user by id
 router.get("/:id", async (req, res) => {
   try {
     const product = await Product.findById(req.params.id).populate('sellerId');
