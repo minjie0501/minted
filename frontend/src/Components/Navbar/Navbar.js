@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { MenuItems } from "./MenuItems";
+import {Button}  from "../Button";
 import "./Navbar.css";
 
 export default function Navbar() {
@@ -17,7 +18,7 @@ export default function Navbar() {
       <div className="menu-icon" onClick={handleClick}>
           <i className={isClicked.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
       </div>
-      <ul className={isClicked.clicked ? 'nav-menu active' : 'nav-menu'}>
+      <ul className={isClicked.clicked ? 'nav-menu-active' : 'nav-menu'}>
         {MenuItems.map((item, index) => {
           return (
             <li key={index}>
@@ -28,6 +29,7 @@ export default function Navbar() {
           );
         })}
       </ul>
+      <Button>Sign Up</Button>
     </nav>
   );
 }
