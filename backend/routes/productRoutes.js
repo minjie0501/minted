@@ -1,6 +1,7 @@
 import express from "express";
 
 import { Product } from "../models/product.js";
+import { User } from "../models/user.js";
 
 const router = express.Router();
 
@@ -17,7 +18,7 @@ router.get("/", async (req, res) => {
 // Get product by id NOTE: add -> i also want the some info of the seller (populate?)
 router.get("/:id", async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById(req.params.id).populate('sellerId');
     res.status(200).send(product);
   } catch (error) {
     res.send(error);
@@ -26,10 +27,12 @@ router.get("/:id", async (req, res) => {
 
 // Create product
 router.post("/", async (req, res) => {
+  const user = await User.findById("61ba0cf01173c3fced0ee170"); //NOTE: the user will come from req.user later -> currently logged in user
   const product = new Product({
     title: req.body.title,
     keywords: req.body.keywords,
     description: req.body.description,
+    sellerId: user.id
   });
   try {
     const newProduct = await product.save();
@@ -47,9 +50,9 @@ router.put("/:id", async (req, res) => {
     product.keywords = req.body.keywords;
     product.description = req.body.description;
     await product.save();
-    res.status(201).send(product)
+    res.status(201).send(product);
   } catch (error) {
-    res.send(error)
+    res.send(error);
   }
 });
 

@@ -1,4 +1,5 @@
 import express from "express";
+import bcrypt from "bcrypt";
 
 import { User } from "../models/user.js";
 
@@ -24,36 +25,37 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// Create user
+router.post("/", async (req, res) => {
+  const hashedPassword = await bcrypt.hash(req.body.password, 10);
+  const user = new User({
+    name: req.body.name,
+    email: req.body.email,
+    password: hashedPassword,
+  });
+  try {
+    const newUser = await user.save();
+    res.status(200).send(newUser);
+  } catch (error) {
+    res.send(error);
+  }
+});
 
-// NOTE: use bcrypt for the password
-// // Create product
-// router.post("/", async (req, res) => {
-//   const product = new Product({
-//     title: req.body.title,
-//     keywords: req.body.keywords,
-//     description: req.body.description,
-//   });
-//   try {
-//     const newProduct = await product.save();
-//     res.status(200).send(newProduct);
-//   } catch (error) {
-//     res.send(error);
-//   }
-// });
-
-// // Update product route
-// router.put("/:id", async (req, res) => {
-//   try {
-//     const product = await Product.findById(req.params.id);
-//     product.title = req.body.title;
-//     product.keywords = req.body.keywords;
-//     product.description = req.body.description;
-//     await product.save();
-//     res.status(201).send(product)
-//   } catch (error) {
-//     res.send(error)
-//   }
-// });
+// Update user route
+router.put("/:id", async (req, res) => {
+  //NOTE: for now i just assume that the user is logged in and authorized to change the password
+  const hashedPassword = await bcrypt.hash(req.body.password, 10);
+  try {
+    const user = await User.findById(req.params.id);
+    user.name = req.body.name;
+    user.email = req.body.email;
+    user.password = hashedPassword;
+    await user.save();
+    res.status(201).send(user);
+  } catch (error) {
+    res.send(error);
+  }
+});
 
 // Delete product
 router.delete("/:id", async (req, res) => {
