@@ -1,5 +1,5 @@
 ## Goal
-- Create a [Vinted](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html) clone
+- Create a [Vinted](https://www.vinted.be/) clone
 - By using the following:
     - Backend:
         - NodeJS + ExpressJS
