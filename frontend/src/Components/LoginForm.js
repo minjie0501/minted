@@ -1,44 +1,50 @@
 import React from "react";
+import Button from "./Button";
 
 function LoginForm() {
   return (
-    <div className="w-full max-w-xs">
-      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" for="username">
-            Username
-          </label>
+    <div className="bg-grey-lighter min-h-screen flex flex-col">
+      <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+        <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+          <h1 className="mb-8 text-3xl text-center">Sign up</h1>
+          <input type="text" className="block border border-grey-light w-full p-3 rounded mb-4" name="fullname" placeholder="Full Name" />
+          <input type="text" className="block border border-grey-light w-full p-3 rounded mb-4" name="email" placeholder="Email" />
+          <input type="text" className="block border border-grey-light w-full p-3 rounded mb-4" name="address" placeholder="Address" />
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="username"
-            type="text"
-            placeholder="Username"
-          />
-        </div>
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2" for="password">
-            Password
-          </label>
-          <input
-            className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-            id="password"
             type="password"
-            placeholder="******************"
+            className="block border border-grey-light w-full p-3 rounded mb-4"
+            name="password"
+            placeholder="Password"
           />
-          <p className="text-red-500 text-xs italic">Please choose a password.</p>
+          <input
+            type="password"
+            className="block border border-grey-light w-full p-3 rounded mb-4"
+            name="confirm_password"
+            placeholder="Confirm Password"
+          />
+
+          <Button value="Create account" />
+
+          <div className="text-center text-sm text-grey-dark mt-4">
+            By signing up, you agree to the
+            <a className="no-underline border-b border-grey-dark text-grey-dark" href="#">
+              Terms of Service
+            </a>{" "}
+            and
+            <a className="no-underline border-b border-grey-dark text-grey-dark" href="#">
+              Privacy Policy
+            </a>
+          </div>
         </div>
-        <div className="flex items-center justify-between">
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="button"
-          >
-            Sign In
-          </button>
-          <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-            Forgot Password?
+
+        <div className="text-grey-dark mt-6">
+          Already have an account?
+          <a className="no-underline border-b border-blue text-blue" href="../login/">
+            Log in
           </a>
+          .
         </div>
-      </form>
+      </div>
     </div>
   );
 }

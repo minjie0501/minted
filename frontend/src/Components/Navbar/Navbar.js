@@ -3,14 +3,12 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGem } from '@fortawesome/free-solid-svg-icons'
 import Button from '../Button'
-import "./Navbar.css";
 
 export default function Navbar({toggle}) {
-
   return (
     <nav className="flex justify-between items-center h-16 bg-slate-700 text-zinc-300 text-xl relative shadow-sm font-bold font-mono" role="navigation">
       <Link to="/" className="pl-8 text-3xl">
-        Minted <FontAwesomeIcon icon={faGem} />
+        Minted <FontAwesomeIcon className="text-2xl" icon={faGem} />
       </Link>
       
       <div className="px-4 cursor-pointer md:hidden" onClick={toggle}>
@@ -29,7 +27,7 @@ export default function Navbar({toggle}) {
           <Link className="p-4" to="/">Products</Link>
           <Link className="p-4" to="/">About</Link>
           <Link className="p-4" to="/">Contact</Link>
-          <Button/>
+          <Button value="Sign up" />
       </div>
     </nav>
   );
