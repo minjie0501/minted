@@ -31,6 +31,7 @@ router.post("/", async (req, res) => {
   const user = new User({
     name: req.body.name,
     email: req.body.email,
+    address: req.body.address,
     password: hashedPassword,
   });
   try {
@@ -49,6 +50,7 @@ router.put("/:id", async (req, res) => {
     const user = await User.findById(req.params.id);
     user.name = req.body.name;
     user.email = req.body.email;
+    user.address = req.body.address;
     user.password = hashedPassword;
     await user.save();
     res.status(201).send(user);
