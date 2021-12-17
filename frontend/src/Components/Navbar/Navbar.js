@@ -1,44 +1,18 @@
-import React, { useState } from "react";
-import { MenuItems } from "./MenuItems";
-import { Button } from "../Button";
+import React from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGem } from '@fortawesome/free-solid-svg-icons'
+import Button from '../Button'
 import "./Navbar.css";
-import { render } from "react-dom";
 
 export default function Navbar({toggle}) {
-  //   const [isClicked, setClick] = useState({ clicked: false });
 
-  //   function handleClick(){
-  //     setClick({clicked: !isClicked.clicked})
-  //   }
-
-  //   return (
-  //     <nav className="NavbarItems">
-  //       <h1 className="navbar-logo">
-  //         Minted<i className="far fa-gem"></i>
-  //       </h1>
-  //       <div className="menu-icon" onClick={handleClick}>
-  //           <i className={isClicked.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
-  //       </div>
-  //       <ul className={isClicked.clicked ? 'nav-menu-active' : 'nav-menu'}>
-  //         {MenuItems.map((item, index) => {
-  //           return (
-  //             <li key={index}>
-  //               <a className={item.cName} href={item.url}>
-  //                 {item.title}
-  //               </a>
-  //             </li>
-  //           );
-  //         })}
-  //       </ul>
-  //       <Button>Sign Up</Button>
-  //     </nav>
-  //   );
   return (
     <nav className="flex justify-between items-center h-16 bg-slate-700 text-zinc-300 text-xl relative shadow-sm font-bold font-mono" role="navigation">
-      <Link to="/" className="pl-8">
-        Minted
+      <Link to="/" className="pl-8 text-3xl">
+        Minted <FontAwesomeIcon icon={faGem} />
       </Link>
+      
       <div className="px-4 cursor-pointer md:hidden" onClick={toggle}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -55,6 +29,7 @@ export default function Navbar({toggle}) {
           <Link className="p-4" to="/">Products</Link>
           <Link className="p-4" to="/">About</Link>
           <Link className="p-4" to="/">Contact</Link>
+          <Button/>
       </div>
     </nav>
   );
