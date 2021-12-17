@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Dropdown from "./Components/Navbar/Dropdown";
 import Navbar from "./Components/Navbar/Navbar";
 import LoginForm from './Components/LoginForm'
+import { Route } from "react-router-dom";
 import "./App.css";
 
 function App() {
@@ -45,7 +46,9 @@ function App() {
     <>
       <Navbar toggle={toggle} />
       <Dropdown isOpen={isOpen} toggle={toggle} />
-      <LoginForm/>
+      {console.log(window.location.path)}
+      {window.location.path === "sign-up" ? <LoginForm/> : ""} 
+      {/* </Route> */}
     </>
   );
 }
