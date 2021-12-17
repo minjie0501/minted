@@ -4,7 +4,7 @@
     - Backend:
         - NodeJS + ExpressJS
         - MongoDB (Mongoose)
-    -Frontend:
+    - Frontend:
         - React
         - TailwindCSS
 
