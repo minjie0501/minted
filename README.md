@@ -1,5 +1,5 @@
 ## Goal
-- Create a [Vinted](https://www.vinted.be/) clone
+- Create a [Vinted](https://www.vinted.be/)/[eBay](https://www.ebay.com/) clone
 - By using the following:
     - Backend:
         - NodeJS + ExpressJS
