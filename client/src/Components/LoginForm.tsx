@@ -36,6 +36,10 @@ export const LoginForm: React.FC = () => {
     }
   };
 
+  const test = async () => {
+    const res = await fetch("http://localhost:3001/products")
+  };
+
   return (
     <div className="content-evenly justify-evenly flex grow h-screen">
       <div className="bg-grey-lighter  flex flex-col ">
@@ -63,7 +67,7 @@ export const LoginForm: React.FC = () => {
             <div className="text-center">
               <Button value="Log In" onClick={handleLogin} />
             </div>
-
+<Button value="test" onClick={test}></Button>
             <div className="text-center text-grey-dark mt-6">
               Don't have an account yet?{" "}
               <Link className="border-b-2" to="/sign-up">
