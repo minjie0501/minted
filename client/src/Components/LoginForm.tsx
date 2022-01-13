@@ -1,43 +1,24 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { url } from "../helpers/endpoint";
 import { Button } from "./Button";
 
 export const LoginForm: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const navigate= useNavigate();
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
-    const data = {
-      username: username,
-      password: password,
-    };
-    try {
-      const res = await fetch("http://localhost:3001/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(data),
-      });
-      if (!res.ok) {
-        if(res.status === 401){
-          console.log('unauth')
-        }
-        const resData = await res.json()
-        throw new Error(resData.message)
-      }
-      navigate('/') 
-    } catch (error) {
-      const e= error
-      console.log(e)
-    }
+    console.log('as')
+    const data = await fetch(`${url}/products`)
+    const parsedData = await data.json()
+    console.log(parsedData)
   };
 
-  const test = async () => {
-    const res = await fetch("http://localhost:3001/products")
+
+  const handleGoogleAuth = async () => {
+    window.open("http://localhost:3001/auth/google", "_self");
   };
 
   return (
@@ -67,7 +48,9 @@ export const LoginForm: React.FC = () => {
             <div className="text-center">
               <Button value="Log In" onClick={handleLogin} />
             </div>
-<Button value="test" onClick={test}></Button>
+            <div className="text-center">
+              <Button value="Log In With Google" onClick={handleGoogleAuth} />
+            </div>
             <div className="text-center text-grey-dark mt-6">
               Don't have an account yet?{" "}
               <Link className="border-b-2" to="/sign-up">
