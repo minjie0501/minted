@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { url } from "../helpers/endpoint";
 import { Button } from "./Button";
+import { GoogleLogin } from 'react-google-login';
 
 export const LoginForm: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -18,7 +19,15 @@ export const LoginForm: React.FC = () => {
 
 
   const handleGoogleAuth = async () => {
-    window.open("http://localhost:3001/auth/google", "_self");
+    window.open(`${url}/auth/google`, "_self");
+  };
+
+  const handleFacebookAuth = async () => {
+    window.open(`${url}/auth/google`, "_self");
+  };
+
+  const handleGithubAuth= async () => {
+    window.open(`${url}/auth/github`, "_self");
   };
 
   return (
@@ -27,6 +36,12 @@ export const LoginForm: React.FC = () => {
         <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2 pb-24">
           <div className="bg-white px-6 py-8 rounded drop-shadow-2xl text-black w-96">
             <h1 className="mb-8 text-3xl text-center">Log in</h1>
+            <div className="text-center">
+              <Button btnClass={"bg-red-300 hover:bg-blue-300 text-slate-700 font-bold ml-3 py-1 px-2 rounded"} value="Log In With Google" onClick={handleGoogleAuth} />
+              <Button btnClass={"bg-red-300 hover:bg-blue-300 text-slate-700 font-bold ml-3 py-1 px-2 rounded"} value="Log In With FaceBook" onClick={handleFacebookAuth} />
+              <Button btnClass={"bg-red-300 hover:bg-blue-300 text-slate-700 font-bold ml-3 py-1 px-2 rounded"} value="Log In With GitHub" onClick={handleGithubAuth} />
+            </div >
+
             <input
               type="text"
               className="block border border-grey-light w-full p-3 rounded mb-4"
@@ -47,9 +62,6 @@ export const LoginForm: React.FC = () => {
             />
             <div className="text-center">
               <Button value="Log In" onClick={handleLogin} />
-            </div>
-            <div className="text-center">
-              <Button value="Log In With Google" onClick={handleGoogleAuth} />
             </div>
             <div className="text-center text-grey-dark mt-6">
               Don't have an account yet?{" "}
