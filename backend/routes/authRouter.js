@@ -17,7 +17,14 @@ router.get("/github", passport.authenticate("github", { scope: ["user:email"] })
 
 router.get("/github/callback", passport.authenticate("github", { failureRedirect: "/login" }), function (req, res) {
   // Successful authentication, redirect home.
-  res.redirect("/");
+  res.redirect("back");
+});
+
+router.get("/facebook", passport.authenticate("facebook"));
+
+router.get("/facebook/callback", passport.authenticate("facebook", { failureRedirect: "/login" }), function (req, res) {
+  // Successful authentication, redirect home.
+  res.redirect("back");
 });
 
 export const authRouter = router;

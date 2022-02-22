@@ -30,26 +30,27 @@ export const githubStrategy = passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: "/auth/github/callback",
+      callbackURL: `${url}/auth/github/callback`,
+    },
+    function (accessToken, refreshToken, profile, done) {
+      console.log(profile)
+      return done(null, profile);
+    }
+  )
+);
+
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: process.env.FACEBOOK_APP_ID,
+      clientSecret: process.env.FACEBOOK_APP_SECRET,
+      callbackURL: `${url}/auth/facebook/callback`,
     },
     function (accessToken, refreshToken, profile, done) {
       return done(null, profile);
     }
   )
 );
-
-// passport.use(
-//   new FacebookStrategy(
-//     {
-//       clientID: process.env.FACEBOOK_APP_ID,
-//       clientSecret: process.env.FACEBOOK_APP_SECRET,
-//       callbackURL: "/auth/facebook/callback",
-//     },
-//     function (accessToken, refreshToken, profile, done) {
-//       return done(null, profile);
-//     }
-//   )
-// );
 
 passport.serializeUser(function (user, done) {
   done(null, user);
