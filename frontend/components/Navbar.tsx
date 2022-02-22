@@ -12,7 +12,7 @@ import { Dropdown } from "./HamburgerMenu/Dropdown";
 interface Props {
 }
 
-export function Navbar({  }):Props {
+export function Navbar({  }:Props) {
   const dispatch = useAppDispatch();
   const [hamburgerOpen, setHamburgerOpen] = useState(false)
 

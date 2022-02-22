@@ -9,8 +9,7 @@ interface Props {
 export function Layout({ children }: Props) {
   return (
     <>
-      <Navbar toggle={() => {}} />
-
+      <Navbar />
       <LoginModal />
       {children}
       {/* <Footer /> */}
