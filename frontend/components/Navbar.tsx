@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import { Link } from "react-router-dom";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faGem } from "@fortawesome/free-solid-svg-icons";
 import { SketchLogo } from "phosphor-react";
 import { Button } from "./Button";
 import Link from "next/link";
+import { useAppSelector, useAppDispatch } from "../features/hooks";
+import { showModal } from "../features/loginSlice";
 
 interface Props {
   toggle: () => void;
 }
 
 export const Navbar: React.FC<Props> = ({ toggle }) => {
+  const dispatch = useAppDispatch();
 
   return (
     <nav
@@ -20,7 +23,7 @@ export const Navbar: React.FC<Props> = ({ toggle }) => {
       <Link href="/">
         {/* Minted <FontAwesomeIcon className="text-2xl" icon={faGem} /> */}
         <div className="mx-4 flex text-2xl justify-center items-center cursor-pointer">
-          <SketchLogo size={28} weight="bold"/>
+          <SketchLogo size={28} weight="bold" />
           <span className="ml-2">Minted</span>
         </div>
       </Link>
@@ -43,11 +46,11 @@ export const Navbar: React.FC<Props> = ({ toggle }) => {
         <Link href="/contact">
           <span className="mx-4 cursor-pointer">Contact</span>
         </Link>
-        <Link href="/sign-up">
-          <a>
-            <Button value="Sign up | Log in"/>
-          </a>
-        </Link>
+        {/* <Link href="/sign-up"> */}
+        {/* <a> */}
+        <Button value="Sign up | Log in" onClick={() => dispatch(showModal(true))} />
+        {/* </a> */}
+        {/* </Link> */}
       </div>
     </nav>
   );

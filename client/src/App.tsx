@@ -55,8 +55,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/products" element={<Products />} />
-          <Route path="/sign-up" element={<SignUp value='sign-up'/>} />
-          <Route path="/log-in" element={<SignUp value='log-in' />} />
+          <Route path="/sign-up" element={<SignUp value="sign-up" />} />
+          <Route path="/log-in" element={<SignUp value="log-in" />} />
         </Routes>
         {/* {window.location.pathname === "sign-up" ? <LoginForm /> : ""} */}
       </div>
