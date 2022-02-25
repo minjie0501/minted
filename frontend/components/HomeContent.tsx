@@ -6,7 +6,7 @@ interface Props {}
 
 export function HomeContent({}: Props) {
   return (
-    <div className="border-red-200 border-2 w-full h-full pt-10">
+    <div className=" w-full h-full pt-10">
       <ContentTable title="Featured Items">
         <Card />
         <Card />

@@ -8,13 +8,21 @@ import Link from "next/link";
 import { useAppSelector, useAppDispatch } from "../features/hooks";
 import { showModal } from "../features/loginModalSlice";
 import { Dropdown } from "./HamburgerMenu/Dropdown";
+import { ProfileDropdown } from "./ProfileDropdown";
 
-interface Props {
-}
+interface Props {}
 
-export function Navbar({  }:Props) {
+export function Navbar({}: Props) {
+  const [hamburgerOpen, setHamburgerOpen] = useState(false);
+  const user = useAppSelector((state) => state.user.value);
+  const [loggedIn, setLoggedIn] = useState(false);
   const dispatch = useAppDispatch();
-  const [hamburgerOpen, setHamburgerOpen] = useState(false)
+
+  useEffect(() => {
+    if (user.hasOwnProperty("id") && user.hasOwnProperty("provider")) {
+      setLoggedIn(true);
+    }
+  }, [user]);
 
   useEffect(() => {
     const hideMenu = () => {
@@ -37,18 +45,18 @@ export function Navbar({  }:Props) {
       >
         <Link href="/">
           {/* Minted <FontAwesomeIcon className="text-2xl" icon={faGem} /> */}
-          <div className="mx-4 flex text-2xl justify-center items-center cursor-pointer">
+          <div className="mx-20 flex text-2xl justify-center items-center cursor-pointer">
             <SketchLogo size={28} weight="bold" />
-            <span className="ml-2">Minted</span>
+            <span className="ml-4">Minted</span>
           </div>
         </Link>
 
-        <div className="px-4 cursor-pointer md:hidden" onClick={()=> setHamburgerOpen(!hamburgerOpen)}>
+        <div className="px-4 cursor-pointer md:hidden" onClick={() => setHamburgerOpen(!hamburgerOpen)}>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </div>
-        <div className="pr-8 md:block hidden text-base lg:text-lg">
+        <div className="pr-8 md:flex hidden text-base justify-center items-center lg:text-lg mr-20">
           <Link href="/">
             <span className="mx-4 cursor-pointer">Home</span>
           </Link>
@@ -63,12 +71,18 @@ export function Navbar({  }:Props) {
           </Link>
           {/* <Link href="/sign-up"> */}
           {/* <a> */}
-          <Button value="Sign up | Log in" onClick={() => dispatch(showModal(true))} />
+          {loggedIn ? (
+            <div>
+              <ProfileDropdown />
+            </div>
+          ) : (
+            <Button value="Sign up | Log in" onClick={() => dispatch(showModal(true))} />
+          )}
           {/* </a> */}
           {/* </Link> */}
         </div>
       </nav>
-      <Dropdown isOpen={hamburgerOpen}  />
+      <Dropdown isOpen={hamburgerOpen} />
     </>
   );
-};
+}

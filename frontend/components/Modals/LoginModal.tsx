@@ -8,7 +8,7 @@ type Props = {};
 
 export function LoginModal({}: Props) {
   const dispatch = useAppDispatch();
-  const showLoginModal = useAppSelector((state) => state.showLoginModal.value);
+  const showLoginModal = useAppSelector((state) => state.loginModal.value);
   const [showCreateAccount, setShowCreateAccount] = useState(false);
   const [showSocialLogin, setShowSocialLogin] = useState(true);
 

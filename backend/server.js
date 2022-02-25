@@ -21,7 +21,12 @@ db.on("error", (error) => console.log(error));
 db.once("open", () => console.log("connected to mongoose"));
 
 const app = express();
-app.use(cors());
+const corsOptions = {
+  origin: ["http://localhost:3000"],
+ //update: or "origin: true," if you don't wanna add a specific one
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 app.all("/*", function (req, res, next) {
   res.header("Access-Control-Allow-Origin", req.headers.origin);

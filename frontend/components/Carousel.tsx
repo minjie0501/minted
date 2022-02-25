@@ -11,7 +11,6 @@ export function Carousel({}: Props) {
 
   return (
     <>
-      <img src="../public/assets/carousel1.jpg" alt="" />
       <CarouselProvider naturalSlideWidth={100} naturalSlideHeight={42} totalSlides={4} className="relative">
         <div className="flex flex-col">
           <ButtonBack className="w-32 h-full  inline bg-gray-300 bg-opacity-10 group hover:bg-opacity-30 absolute z-30 bottom-6">
@@ -21,24 +20,24 @@ export function Carousel({}: Props) {
             <CaretRight className="w-32 h-32 opacity-40 text-gray-300 group-hover:text-gray-400" />
           </ButtonNext>
           <Slider>
-            <Slide index={0}>
-              <div className="relative w-full h-full">
-                <Image src={"/assets/carousel2.jpg"} alt="" layout="fill" />
+            <Slide className="relative w-auto h-auto" index={0}>
+              <div className="relative w-full h-full ">
+                <Image src={"/assets/carousel2.jpg"} alt="" layout="fill" className="object-cover"/>
               </div>
             </Slide>
-            <Slide className="relative w-auto h-auto" index={1}>
-              <div className="relative w-full h-full">
-                <Image src={"/assets/carousel2.jpg"} alt="" layout="fill" />
+            <Slide className="relative w-auto h-auto " index={1}>
+              <div className="relative w-full h-full ">
+                <Image src={"/assets/carousel3.jpg"} alt="" layout="fill" className="object-cover" />
               </div>
             </Slide>
             <Slide className="relative w-auto h-auto" index={2}>
               <div className="relative w-full h-full">
-                <Image src={"/assets/carousel2.jpg"} alt="" layout="fill" />
+                <Image src={"/assets/carousel2.jpg"} alt="" layout="fill" className="object-cover"/>
               </div>
             </Slide>
             <Slide className="relative w-auto h-auto" index={3}>
               <div className="relative w-full h-full">
-                <Image src={"/assets/carousel2.jpg"} alt="" layout="fill" />
+                <Image src={"/assets/carousel3.jpg"} alt="" layout="fill" className="object-cover"/>
               </div>
             </Slide>
           </Slider>

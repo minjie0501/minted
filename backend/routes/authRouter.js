@@ -38,10 +38,15 @@ router.get("/facebook/callback", passport.authenticate("facebook", { failureRedi
 
 router.get("/isLoggedIn", (req, res) => {
   if (req.isAuthenticated()) {
-    console.log(req.user)
     return res.status(200).json(req.user)
   }
   return res.status(200).json({ loggedIn: false });
+});
+
+router.delete("/logout", (req, res) => {
+  req.session.destroy(); // NOTE: i do want to do this i think?  deletes session from db after logout/ without this session gets updated
+  req.logOut();
+  res.status(200).send({ message: "Successfully logged out" });
 });
 
 export const authRouter = router;

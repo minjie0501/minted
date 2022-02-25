@@ -1,30 +1,33 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
 
+// TODO: change interface
 // Define a type for the slice state
-interface LoginModalState {
-  value: boolean;
+interface UserState {
+  value: {
+    [key: string]: any;
+  };
 }
 
 // Define the initial state using that type
-const initialState: LoginModalState = {
-  value: false,
+const initialState: UserState = {
+  value: {},
 };
 
-export const loginModalSlice = createSlice({
-  name: "loginModal",
+export const userSlice = createSlice({
+  name: "user",
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    showModal: (state, action: PayloadAction<boolean>) => {
+    setUser: (state, action: PayloadAction<{}>) => {
       state.value = action.payload;
     },
   },
 });
 
-export const { showModal } = loginModalSlice.actions;
+export const { setUser } = userSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 // export const selectLoginModal = (state: RootState) => state.showLoginModal.value
 
-export default loginModalSlice.reducer;
+export default userSlice.reducer;
