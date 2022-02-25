@@ -1,34 +1,50 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from "pure-react-carousel";
+import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext, Dot, DotGroup } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
+import { CaretRight, CaretLeft } from "phosphor-react";
 
 interface Props {}
 
 export function Carousel({}: Props) {
   const [currentCarousel, setCurrentCarousel] = useState(0);
-  useEffect(() => {
-    console.log(currentCarousel);
-  }, [currentCarousel]);
 
   return (
     <>
       <img src="../public/assets/carousel1.jpg" alt="" />
-      <CarouselProvider naturalSlideWidth={100} naturalSlideHeight={42} totalSlides={3} className="relative">
-        <div className="border-red-400 border-2">
-          <ButtonBack className="w-32 bg-red-500 absolute z-30 top-1/2">Back</ButtonBack>
-          <ButtonNext className="z-30  bg-red-500 absolute right-0 top-1/2">Next</ButtonNext>
+      <CarouselProvider naturalSlideWidth={100} naturalSlideHeight={42} totalSlides={4} className="relative">
+        <div className="flex flex-col">
+          <ButtonBack className="w-32 h-full  inline bg-gray-300 bg-opacity-10 group hover:bg-opacity-30 absolute z-30 bottom-6">
+            <CaretLeft className="w-32 h-32 opacity-40 text-gray-300 group-hover:text-gray-400" />
+          </ButtonBack>
+          <ButtonNext className="z-30 w-32 h-full  bg-gray-300 bg-opacity-10 group hover:bg-opacity-30 absolute right-0 bottom-6">
+            <CaretRight className="w-32 h-32 opacity-40 text-gray-300 group-hover:text-gray-400" />
+          </ButtonNext>
           <Slider>
             <Slide index={0}>
-              <Image src={"/assets/carousel2.jpg"} alt="" layout="fill" />
+              <div className="relative w-full h-full">
+                <Image src={"/assets/carousel2.jpg"} alt="" layout="fill" />
+              </div>
             </Slide>
-            <Slide index={1}>
-              <Image src={"/assets/carousel1.jpg"} alt="" layout="fill" />
+            <Slide className="relative w-auto h-auto" index={1}>
+              <div className="relative w-full h-full">
+                <Image src={"/assets/carousel2.jpg"} alt="" layout="fill" />
+              </div>
             </Slide>
-            <Slide index={2}>
-              <Image src={"/assets/carousel1.jpg"} alt="" layout="fill" />
+            <Slide className="relative w-auto h-auto" index={2}>
+              <div className="relative w-full h-full">
+                <Image src={"/assets/carousel2.jpg"} alt="" layout="fill" />
+              </div>
+            </Slide>
+            <Slide className="relative w-auto h-auto" index={3}>
+              <div className="relative w-full h-full">
+                <Image src={"/assets/carousel2.jpg"} alt="" layout="fill" />
+              </div>
             </Slide>
           </Slider>
+        </div>
+        <div className="w-screen flex justify-center bg-slate-700 z-40">
+          <DotGroup className="z-20 w-1/3 flex justify-evenly bg-gray-300 bg-opacity-50" dotNumbers />
         </div>
       </CarouselProvider>
       {/* <div id="default-carousel" data-carousel="slide" className="relative">

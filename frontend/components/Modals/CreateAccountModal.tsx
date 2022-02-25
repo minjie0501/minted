@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppSelector, useAppDispatch } from "../../features/hooks";
-import { showModal } from "../../features/loginSlice";
+import { showModal } from "../../features/loginModalSlice";
 
 interface Props {
   setShowCreateAccount: (bool: boolean) => void;
@@ -23,7 +23,7 @@ export function CreateAccountModal({ setShowCreateAccount, setShowSocialLogin }:
 
   return (
     <>
-      (
+      
       <div
         id="authentication-modal"
         aria-hidden="true"
@@ -119,7 +119,7 @@ export function CreateAccountModal({ setShowCreateAccount, setShowSocialLogin }:
           </div>
         </div>
       </div>
-      )
+      
     </>
   );
 }

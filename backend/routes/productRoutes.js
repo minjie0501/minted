@@ -7,12 +7,11 @@ const router = express.Router();
 
 // Get all products
 router.get("/", async (req, res) => {
-  console.log(req.user)
   try {
     const products = await Product.find();
-    res.status(200).send(products);
+    res.status(200).json(products);
   } catch (error) {
-    res.send(error);
+    res.json(error);
   }
 });
 
@@ -20,9 +19,9 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const product = await Product.findById(req.params.id).populate('sellerId');
-    res.status(200).send(product);
+    res.status(200).json(product);
   } catch (error) {
-    res.send(error);
+    res.json(error);
   }
 });
 
@@ -37,9 +36,9 @@ router.post("/", async (req, res) => {
   });
   try {
     const newProduct = await product.save();
-    res.status(200).send(newProduct);
+    res.status(200).json(newProduct);
   } catch (error) {
-    res.send(error);
+    res.json(error);
   }
 });
 
@@ -51,9 +50,9 @@ router.put("/:id", async (req, res) => {
     product.keywords = req.body.keywords;
     product.description = req.body.description;
     await product.save();
-    res.status(201).send(product);
+    res.status(201).json(product);
   } catch (error) {
-    res.send(error);
+    res.json(error);
   }
 });
 
@@ -61,9 +60,9 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     await Product.findByIdAndRemove(req.params.id);
-    res.status(200).send({ message: `Product successfully deleted with id: ${req.params.id}` });
+    res.status(200).json({ message: `Product successfully deleted with id: ${req.params.id}` });
   } catch (error) {
-    res.send(error);
+    res.json(error);
   }
 });
 

@@ -9,9 +9,9 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const users = await User.find();
-    res.status(200).send(users);
+    res.status(200).json(users);
   } catch (error) {
-    res.send(error);
+    res.json(error);
   }
 });
 
@@ -19,9 +19,9 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    res.status(200).send(user);
+    res.status(200).json(user);
   } catch (error) {
-    res.send(error);
+    res.json(error);
   }
 });
 
@@ -36,9 +36,9 @@ router.post("/", async (req, res) => {
   });
   try {
     const newUser = await user.save();
-    res.status(200).send(newUser);
+    res.status(200).json(newUser);
   } catch (error) {
-    res.send(error);
+    res.json(error);
   }
 });
 
@@ -53,9 +53,9 @@ router.put("/:id", async (req, res) => {
     user.address = req.body.address;
     user.password = hashedPassword;
     await user.save();
-    res.status(201).send(user);
+    res.status(201).json(user);
   } catch (error) {
-    res.send(error);
+    res.json(error);
   }
 });
 
@@ -63,9 +63,9 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     await User.findByIdAndRemove(req.params.id);
-    res.status(200).send({ message: `User successfully deleted with id: ${req.params.id}` });
+    res.status(200).json({ message: `User successfully deleted with id: ${req.params.id}` });
   } catch (error) {
-    res.send(error);
+    res.json(error);
   }
 });
 

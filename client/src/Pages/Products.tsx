@@ -9,7 +9,6 @@ export const Products: React.FC = () => {
       credentials: "include",
     });
     const dataParse = await data.json();
-    console.log(dataParse);
   };
 
   useEffect(() => {

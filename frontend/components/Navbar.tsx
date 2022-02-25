@@ -6,7 +6,7 @@ import { SketchLogo } from "phosphor-react";
 import { Button } from "./Button";
 import Link from "next/link";
 import { useAppSelector, useAppDispatch } from "../features/hooks";
-import { showModal } from "../features/loginSlice";
+import { showModal } from "../features/loginModalSlice";
 import { Dropdown } from "./HamburgerMenu/Dropdown";
 
 interface Props {

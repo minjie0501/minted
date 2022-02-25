@@ -8,19 +8,20 @@ import bodyParser from "body-parser";
 import passport from "passport";
 import cors from "cors";
 import session from "express-session";
+import MongoStore from 'connect-mongo'
 
 import { Product } from "./models/product.js";
 import { productRouter } from "./routes/productRoutes.js";
 import { userRouter } from "./routes/userRoutes.js";
 import { authRouter } from "./routes/authRouter.js";
-import {googleStrategy, githubStrategy} from './strategies/passportStrategy.js'
+import { googleStrategy, githubStrategy } from "./strategies/passportStrategy.js";
 mongoose.connect(process.env.DATABASE_URL);
 const db = mongoose.connection;
 db.on("error", (error) => console.log(error));
 db.once("open", () => console.log("connected to mongoose"));
 
 const app = express();
-app.use(cors())
+app.use(cors());
 
 app.all("/*", function (req, res, next) {
   res.header("Access-Control-Allow-Origin", req.headers.origin);
@@ -32,7 +33,14 @@ app.all("/*", function (req, res, next) {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: true }));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    store: MongoStore.create({ mongoUrl: process.env.DATABASE_URL }),
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 

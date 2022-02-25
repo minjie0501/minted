@@ -33,7 +33,6 @@ export const githubStrategy = passport.use(
       callbackURL: `${url}/auth/github/callback`,
     },
     function (accessToken, refreshToken, profile, done) {
-      console.log(profile)
       return done(null, profile);
     }
   )

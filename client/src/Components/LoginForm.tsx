@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { url } from "../helpers/endpoint";
 import { Button } from "./Button";
-import { GoogleLogin } from 'react-google-login';
 
 export const LoginForm: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -11,10 +10,8 @@ export const LoginForm: React.FC = () => {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    console.log('as')
     const data = await fetch(`${url}/products`)
     const parsedData = await data.json()
-    console.log(parsedData)
   };
 
 

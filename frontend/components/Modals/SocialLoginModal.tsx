@@ -1,7 +1,7 @@
 import { BlockList } from "net";
 import React, { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../features/hooks";
-import { showModal } from "../../features/loginSlice";
+import { showModal } from "../../features/loginModalSlice";
 import { urlBase } from "../../utils/urlBase";
 import { CreateAccountModal } from "./CreateAccountModal";
 

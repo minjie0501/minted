@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../features/hooks";
-import { showModal } from "../../features/loginSlice";
+import { showModal } from "../../features/loginModalSlice";
 import { CreateAccountModal } from "./CreateAccountModal";
 import { SocialLoginModal } from "./SocialLoginModal";
 
