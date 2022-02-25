@@ -45,7 +45,7 @@ export function Navbar({}: Props) {
       >
         <Link href="/">
           {/* Minted <FontAwesomeIcon className="text-2xl" icon={faGem} /> */}
-          <div className="mx-20 flex text-2xl justify-center items-center cursor-pointer">
+          <div className="ml-2 lg:ml-4 xl:ml-20 flex text-2xl justify-center items-center cursor-pointer">
             <SketchLogo size={28} weight="bold" />
             <span className="ml-4">Minted</span>
           </div>
@@ -56,7 +56,7 @@ export function Navbar({}: Props) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </div>
-        <div className="pr-8 md:flex hidden text-base justify-center items-center lg:text-lg mr-20">
+        <div className="md:flex hidden text-base justify-center items-center lg:text-lg mr-2 lg:mr-4 xl:mr-20">
           <Link href="/">
             <span className="mx-4 cursor-pointer">Home</span>
           </Link>
@@ -82,7 +82,7 @@ export function Navbar({}: Props) {
           {/* </Link> */}
         </div>
       </nav>
-      <Dropdown isOpen={hamburgerOpen} />
+      <Dropdown isOpen={hamburgerOpen} loggedIn={loggedIn} />
     </>
   );
 }

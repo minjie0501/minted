@@ -9,6 +9,8 @@ import { setUser } from "../features/userSlice";
 
 const Home: NextPage = () => {
   const dispatch = useAppDispatch()
+
+  // TODO: this on all pages
   const userIsLoggedIn = async () => {
     try {
       const res = await fetch(`http://localhost:3001/auth/isLoggedIn`, {  credentials: 'include', });

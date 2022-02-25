@@ -1,18 +1,15 @@
 import Link from "next/link";
 import React from "react";
 
-interface Props{
-    pageName: string,
-    className: string, 
-    to: string
+interface Props {
+  pageName: string;
+  to: string;
 }
 
-export function DropdownItem({pageName,to,className}:Props) {
+export function DropdownItem({ pageName, to }: Props) {
   return (
     <Link href={to}>
-      <a className={className}>
-      {pageName}
-      </a>
+      <a className="p-4 hover:bg-blue-700 border-zinc-300 border-b">{pageName}</a>
     </Link>
   );
 }
