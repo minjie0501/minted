@@ -78,6 +78,9 @@ export function Navbar({}: Props) {
           ) : (
             <Button value="Sign up | Log in" onClick={() => dispatch(showModal(true))} />
           )}
+          <Link href="/items/new">
+            <span className="mx-4 cursor-pointer">Sell Now</span>
+          </Link>
           {/* </a> */}
           {/* </Link> */}
         </div>
