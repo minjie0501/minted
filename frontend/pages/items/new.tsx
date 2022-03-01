@@ -36,7 +36,7 @@ export default function New({}: Props) {
   };
 
   return (
-    <div className="m-auto w-[390px] sm:w-[600px] md:w-[820px] lg:w-[960px] border-red-200 border-2 h-screen mt-10">
+    <div className="m-auto w-[390px] sm:w-[690px] md:w-[820px] lg:w-[960px] border-red-200 border-2 h-screen mt-10">
       <h2 className="font-semibold text-2xl m-2">Sell an item</h2>
       <div className="border-gray-200  border">
         <h3>Add up to 10 photos. </h3>

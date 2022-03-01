@@ -5,7 +5,7 @@ interface Props {}
 
 export function Card({}: Props) {
   return (
-    <div className="p-2 w-48 sm:w-64 ">
+    <div className="p-0 lg:p-2 w-40 sm:w-64 m-auto">
       <div>Username</div>
       <div className="relative h-60 sm:h-80 w-full">
         <Image src="/assets/dummyimage.jpg" layout="fill" alt="" />

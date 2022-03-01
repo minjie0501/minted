@@ -8,7 +8,7 @@ import bodyParser from "body-parser";
 import passport from "passport";
 import cors from "cors";
 import session from "express-session";
-import MongoStore from 'connect-mongo'
+import MongoStore from "connect-mongo";
 
 import { Product } from "./models/product.js";
 import { productRouter } from "./routes/productRoutes.js";
@@ -23,7 +23,7 @@ db.once("open", () => console.log("connected to mongoose"));
 const app = express();
 const corsOptions = {
   origin: ["http://localhost:3000"],
- //update: or "origin: true," if you don't wanna add a specific one
+  //update: or "origin: true," if you don't wanna add a specific one
   credentials: true,
 };
 app.use(cors(corsOptions));
@@ -44,6 +44,7 @@ app.use(
     store: MongoStore.create({ mongoUrl: process.env.DATABASE_URL }),
     resave: false,
     saveUninitialized: true,
+    cookie: { path: "/", secure: process.env.NODE_ENV, httpOnly: true, maxAge: 36000000 },
   })
 );
 app.use(passport.initialize());

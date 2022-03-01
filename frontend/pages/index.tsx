@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useEffect } from "react";
 import { Carousel } from "../components/Carousel";
+import Header from "../components/Header/Header";
 import { HomeContent } from "../components/HomeContent";
 import { useAppDispatch } from "../features/hooks";
 import { setUser } from "../features/userSlice";
@@ -30,9 +31,10 @@ const Home: NextPage = () => {
 
 
   return (
-    <div className="overflow-x-hidden">
+    <div className="overflow-x-hidden ">
       {/* <Image src="/assets/carousel1.jpg" alt=""  width={20} height={20}/> */}
-      <Carousel />
+      {/* <Carousel /> */}
+      <Header/>
       <HomeContent />
     </div>
   );
