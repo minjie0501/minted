@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-// import { Link } from "react-router-dom";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faGem } from "@fortawesome/free-solid-svg-icons";
-import { SketchLogo } from "phosphor-react";
-import { Button } from "./Button";
+import { EnvelopeSimple, EnvelopeSimpleOpen, SketchLogo } from "phosphor-react";
+import { Button } from "../Button";
 import Link from "next/link";
-import { useAppSelector, useAppDispatch } from "../features/hooks";
-import { showModal } from "../features/loginModalSlice";
-import { Dropdown } from "./HamburgerMenu/Dropdown";
-import { ProfileDropdown } from "./ProfileDropdown";
+import { useAppSelector, useAppDispatch } from "../../features/hooks";
+import { showModal } from "../../features/loginModalSlice";
+import { Dropdown } from "../HamburgerMenu/Dropdown";
+import { NavDropdown } from "./NavDropdown";
+import { ProfileDropdown } from "../ProfileDropdown";
+import { SearchBar } from "./SearchBar";
+import { HeartStraight, Bell } from "phosphor-react";
 
 interface Props {}
 
@@ -41,49 +41,62 @@ export function Navbar({}: Props) {
     <>
       <div className="">
         <div className="h-full">
-          <div className="m-auto w-full xl:w-[1240px] px-5 xl:px-0">
+          <div className="m-auto w-full xl:w-[1240px] px-5 xl:px-0 ">
             <nav
-              className="flex justify-between items-center p-2 text-cyan-500 text-xl relative shadow-sm font-bold font-mono"
+              className="flex justify-between items-center p-2 text-cyan-500 text-xl relative font-bold font-mono"
               role="navigation"
             >
               <Link href="/">
-                {/* Minted <FontAwesomeIcon className="text-2xl" icon={faGem} /> */}
                 <div className=" flex text-2xl justify-center items-center cursor-pointer">
                   <SketchLogo size={28} weight="bold" />
                   <span className="ml-2">Minted</span>
                 </div>
               </Link>
+              <SearchBar />
 
               <div className="px-4 cursor-pointer md:hidden" onClick={() => setHamburgerOpen(!hamburgerOpen)}>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </div>
               <div className="md:flex hidden text-base justify-center items-center lg:text-lg ">
-                {/* <Link href="/sign-up"> */}
-                {/* <a> */}
+                <HeartStraight className="w-6 h-6 text-gray-400 mx-2" />
+                <Bell className="w-6 h-6 text-gray-400 mx-2" />
+                <EnvelopeSimpleOpen className="w-6 h-6 text-gray-400 mx-2" />
                 {loggedIn ? (
                   <div>
                     <ProfileDropdown />
                   </div>
                 ) : (
-                  <Button value="Sign up | Log in" onClick={() => dispatch(showModal(true))} />
+                  <Button
+                    btnClass="bg-white text-cyan-500 border-cyan-500 border rounded p-1 text-sm"
+                    value="Sign up | Log in"
+                    onClick={() => dispatch(showModal(true))}
+                  />
                 )}
-                {/* <Link href="/items/new">
-                <span className="mx-4 cursor-pointer">Sell Now</span>
-              </Link> */}
-                {/* </a> */}
-                {/* </Link> */}
+                <Link href={"/items/new"}>
+                  <Button
+                    value="Sell now"
+                    btnClass="bg-white text-white mx-2 border-cyan-500 border rounded p-1 text-sm bg-cyan-500"
+                  />
+                </Link>
               </div>
             </nav>
             <Dropdown isOpen={hamburgerOpen} loggedIn={loggedIn} />
           </div>
         </div>
       </div>
-      <div className="">
+      <div className="w-full border-gray-200 border-b"></div>
+      <div className="m-auto w-full xl:w-[1240px] px-5 xl:px-0">
         <div className="h-full">
           <div className="m-auto w-full xl:w-[1240px] ">
-            <div className="flex justify-between items-center h-full text-gray-500 text-lg font-thin relative shadow-sm font-mono">
+            <div className="flex justify-between items-center h-full text-gray-500 text-lg font-thin relative  font-mono">
               <div className="md:flex hidden text-base justify-center items-center font-light ">
                 <div className="flex m-auto w-full xl:w-[1240px] ">
                   <Link href="/">
@@ -122,6 +135,7 @@ export function Navbar({}: Props) {
           </div>
         </div>
       </div>
+      <div className="w-full border-gray-200 border-b"></div>
     </>
   );
 }

@@ -35,18 +35,11 @@ export function ProfileDropdown({}: Props) {
           <div
             className="
           px-2
-          py-2
-          bg-blue-600
           text-white
           font-medium
           text-xs
           leading-tight
           uppercase
-          rounded
-          shadow-md
-          hover:bg-blue-700 hover:shadow-lg
-          focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
-          active:bg-blue-800 active:shadow-lg active:text-white
           transition
           duration-150
           ease-in-out
@@ -60,7 +53,7 @@ export function ProfileDropdown({}: Props) {
             aria-expanded="false"
             onClick={() => setOpen(!open)}
           >
-            <div className="w-6 h-6 border-gray-800 border rounded-full relative">
+            <div className="w-7 h-7 border-gray-800 border rounded-full relative">
               <Image
                 src="https://lh3.googleusercontent.com/a/AATXAJxnKVq1UEYixQ1hfEoxzfjgvTqqSrlSSwSrtOIA=s96-c"
                 alt=""
@@ -73,7 +66,7 @@ export function ProfileDropdown({}: Props) {
               focusable="false"
               data-prefix="fas"
               data-icon="caret-down"
-              className="w-2 ml-2"
+              className="text-gray-800 w-2 ml-1"
               role="img"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 320 512"
@@ -86,7 +79,7 @@ export function ProfileDropdown({}: Props) {
           </div>
           <ul
             className={clsx(
-              "dropdown-menu w-48 absolute bg-white text-sm right-0 z-50 float-left py-2  list-none  text-left rounded-lg shadow-lg  mt-1  m-0 bg-clip-padding border-none",
+              "dropdown-menu w-48 absolute drop-shadow-2xl bg-white text-sm right-0 z-50 float-left pt-2 pb-1  list-none  text-left rounded-md shadow-lg  mt-1  m-0 bg-clip-padding border-none",
               {
                 "": open === true,
                 hidden: open === false,
@@ -96,47 +89,62 @@ export function ProfileDropdown({}: Props) {
           >
             <li>
               <a
-                className="text-xs py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-300 hover:bg-gray-100  pointer-events-none"
+                className="text-xs py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-400 hover:bg-gray-100  pointer-events-none"
                 href="#"
               >
                 ACCOUNT
               </a>
             </li>
             <li>
-              <a className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 " href="#">
+              <a
+                className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 "
+                href="#"
+              >
                 Profile
               </a>
             </li>
             <li>
-              <a className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 " href="#">
+              <a
+                className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 "
+                href="#"
+              >
                 Settings
               </a>
             </li>
             <li>
-              <a className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 " href="#">
+              <a
+                className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 "
+                href="#"
+              >
                 Personalization
               </a>
             </li>
             <li>
-              <a className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 " href="#">
+              <a
+                className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 "
+                href="#"
+              >
                 <span className="flex justify-between items-center">
                   Balance <span className="text-gray-300 text-xs">$0.00</span>
                 </span>
               </a>
             </li>
             <li>
-              <a className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 " href="#">
+              <a
+                className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 "
+                href="#"
+              >
                 Invite friends
               </a>
             </li>
-            <hr className="h-0 my-0 border border-solid border-t-0 border-gray-700 opacity-25" />
             <li>
-              <button
-                className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 "
+              <a
+                className=" py-2 px-4 font-normal block w-full border-t whitespace-nowrap bg-transparent text-red-500 hover:bg-gray-100 "
+                href="#"
                 onClick={handleLogout}
               >
-                Log out
-              </button>
+                Logout
+              </a>
             </li>
           </ul>
         </div>
