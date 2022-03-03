@@ -80,11 +80,13 @@ export function Navbar({}: Props) {
                     onClick={() => dispatch(showModal(true))}
                   />
                 )}
-                <Link href={"/items/new"}>
-                  <Button
-                    value="Sell now"
-                    btnClass="bg-white text-white mx-2 border-cyan-500 border rounded p-1 text-sm bg-cyan-500"
-                  />
+                <Link href="/items/new">
+                  <div>
+                    <Button
+                      value="Sell now"
+                      btnClass="bg-white text-white mx-2 border-cyan-500 border rounded p-1 text-sm bg-cyan-500"
+                    />
+                  </div>
                 </Link>
               </div>
             </nav>
