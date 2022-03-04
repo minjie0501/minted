@@ -2,9 +2,10 @@ import clsx from "clsx";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { useAppDispatch } from "../features/hooks";
-import { setUser } from "../features/userSlice";
-import { urlBase } from "../utils/urlBase";
+import { useAppDispatch } from "../../features/hooks";
+import { setUser } from "../../features/userSlice";
+import { urlBase } from "../../utils/urlBase";
+import Link from "next/link";
 
 type Props = {};
 
@@ -27,6 +28,10 @@ export function ProfileDropdown({}: Props) {
       throw error;
     }
   };
+
+  const handleCloseOnClick = () => {
+    setOpen(false)
+  }
 
   return (
     <div className="flex justify-center">
@@ -96,48 +101,39 @@ export function ProfileDropdown({}: Props) {
               </a>
             </li>
             <li>
-              <a
-                className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 "
-                href="#"
-              >
-                Profile
-              </a>
+              <Link href={"/profile/dummyUserId"} >
+                <a
+                  className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 "
+                  href="#"
+                  onClick={handleCloseOnClick}
+                >
+                  Profile
+                </a>
+              </Link>
             </li>
             <li>
-              <a
-                className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 "
-                href="#"
-              >
+              <a className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 " href="#" onClick={handleCloseOnClick}>
                 Settings
               </a>
             </li>
             <li>
-              <a
-                className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 "
-                href="#"
-              >
+              <a className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 " href="#" onClick={handleCloseOnClick}>
                 Personalization
               </a>
             </li>
             <li>
-              <a
-                className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 "
-                href="#"
-              >
+              <a className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 " href="#" onClick={handleCloseOnClick}>
                 <span className="flex justify-between items-center">
                   Balance <span className="text-gray-300 text-xs">$0.00</span>
                 </span>
               </a>
             </li>
             <li>
-              <a
-                className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 "
-                href="#"
-              >
+              <a className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 " href="#" onClick={handleCloseOnClick}>
                 Invite friends
               </a>
             </li>
-            <li>
+            <li>  
               <a
                 className=" py-2 px-4 font-normal block w-full border-t whitespace-nowrap bg-transparent text-red-500 hover:bg-gray-100 "
                 href="#"

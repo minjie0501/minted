@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+// TODO: validation
 const userSchema = new mongoose.Schema(
   {
     name: {

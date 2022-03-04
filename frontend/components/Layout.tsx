@@ -1,4 +1,5 @@
 import React, { ReactElement } from "react";
+import { Footer } from "./Footer";
 import { LoginModal } from "./Modals/LoginModal";
 import { Navbar } from "./Navbar/Navbar";
 
@@ -12,7 +13,7 @@ export function Layout({ children }: Props) {
       <Navbar />
       <LoginModal />
       {children}
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }

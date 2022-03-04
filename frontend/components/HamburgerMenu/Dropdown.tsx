@@ -2,7 +2,7 @@ import React from "react";
 import { useAppDispatch } from "../../features/hooks";
 import { showModal } from "../../features/loginModalSlice";
 import { Button } from "../Button";
-import { ProfileDropdown } from "../ProfileDropdown";
+import { ProfileDropdown } from "../Navbar/ProfileDropdown";
 import { DropdownItem } from "./DropdownItem";
 
 interface Props {

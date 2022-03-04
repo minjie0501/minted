@@ -6,7 +6,7 @@ import { useAppSelector, useAppDispatch } from "../../features/hooks";
 import { showModal } from "../../features/loginModalSlice";
 import { Dropdown } from "../HamburgerMenu/Dropdown";
 import { NavDropdown } from "./NavDropdown";
-import { ProfileDropdown } from "../ProfileDropdown";
+import { ProfileDropdown } from "./ProfileDropdown";
 import { SearchBar } from "./SearchBar";
 import { HeartStraight, Bell } from "phosphor-react";
 
@@ -84,7 +84,7 @@ export function Navbar({}: Props) {
                   <div>
                     <Button
                       value="Sell now"
-                      btnClass="bg-white text-white mx-2 border-cyan-500 border rounded p-1 text-sm bg-cyan-500"
+                      btnClass="bg-white text-white ml-2 border-cyan-500 border rounded p-1 text-sm bg-cyan-500"
                     />
                   </div>
                 </Link>

@@ -10,8 +10,8 @@ import cors from "cors";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 
-import { Product } from "./models/product.js";
-import { productRouter } from "./routes/productRoutes.js";
+import { Item } from "./models/item.js";
+import { itemRouter } from "./routes/itemRoutes.js";
 import { userRouter } from "./routes/userRoutes.js";
 import { authRouter } from "./routes/authRouter.js";
 import { googleStrategy, githubStrategy } from "./strategies/passportStrategy.js";
@@ -50,7 +50,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/products", productRouter);
+app.use("/items", itemRouter);
 app.use("/users", userRouter);
 app.use("/auth", authRouter);
 

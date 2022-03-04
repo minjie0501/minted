@@ -3,28 +3,27 @@ import { Button } from "../../components/Button";
 import { XSquare, Plus } from "phosphor-react";
 import clsx from "clsx";
 import { brands, categories, conditionOptions } from "../../data/sellItemPageData";
+import { urlBase } from "../../utils/urlBase";
 
 type Props = {};
 
-// TODO: add drag and drop later
+// TODO: add drag and drop later https://codesandbox.io/s/6v7l7z68jk?file=/src/components/DragItem.js
 // TODO: add some kind of error message when the user tries to add more than 10 images
 // TODO: select box arrow look up when open look down when closed
 // TODO: create separate components from some of the stuff
+// TODO: change checkbox color somehow
 export default function New({}: Props) {
   const [images, setImages] = useState<Array<File>>([]);
   const [files, setFiles] = useState<Array<File>>([]);
-  const [itemData, setItemData] = useState({ // TODO: finish this
+  const [itemData, setItemData] = useState({
     title: "",
     description: "",
     category: "",
     brand: "",
     condition: "",
     price: "",
+    swap: false,
   });
-
-  useEffect(() => {
-    console.log(itemData);
-  }, [itemData]);
 
   const fileInputRef = useRef<HTMLInputElement>();
 
@@ -44,15 +43,12 @@ export default function New({}: Props) {
     });
   }
 
-  const handleOnChange = async (e: Event) => {
+  const handleFileUpload = async (e: Event) => {
     const imgs = [] as any;
     const fls = [] as any;
     const selectedImages = (e.target as HTMLInputElement).files;
     for (let i = 0; i < selectedImages!.length; i++) {
-      if (
-        (e.target as HTMLInputElement).files![i] &&
-        (e.target as HTMLInputElement).files![i].type.substr(0, 5) === "image"
-      ) {
+      if ((e.target as HTMLInputElement).files![i] && (e.target as HTMLInputElement).files![i].type.substr(0, 5) === "image") {
         imgs.push(await readFileAsText((e.target as HTMLInputElement).files![i]));
         fls.push((e.target as HTMLInputElement).files![i]);
       }
@@ -64,26 +60,40 @@ export default function New({}: Props) {
   };
 
   const handleUpload = async () => {
-    console.log("asd");
-    const data = new FormData();
-    data.append("file", files[0]);
-    data.append("upload_preset", "uploads");
-    data.append("cloud_name", "dhpyqq46x");
+    const imgUrls = [String]
     try {
-      const uploadRes = await fetch("https://api.cloudinary.com/v1_1/dhpyqq46x/image/upload", {
-        method: "POST",
-        body: data,
-      });
+      for (const file of files) {
+        const data = new FormData();
+        data.append("file", file);
+        data.append("upload_preset", "uploads");
+        const uploadRes = await fetch("https://api.cloudinary.com/v1_1/dhpyqq46x/image/upload", {
+          method: "POST",
+          body: data,
+        });
+        const { url } = await uploadRes.json();
+        imgUrls.push(url)
+      }
 
-      const { url } = await uploadRes.json();
-      console.log(url);
+      const res = await fetch(`${urlBase}/items`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ ...itemData, imgs: imgUrls, sellerId: "62220daa2ac6bb6d36307ff2" }),
+      });
+      const resBody = await res.json();
+      console.log(resBody);
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleItemData = (e: any) => {
-    setItemData({ ...itemData, [e.target.name]: e.target.value });
+    if (e.target.type === "checkbox") {
+      setItemData({ ...itemData, [e.target.name]: e.target.checked });
+    } else {
+      setItemData({ ...itemData, [e.target.name]: e.target.value });
+    }
   };
 
   return (
@@ -114,6 +124,7 @@ export default function New({}: Props) {
                             className="absolute m-2 right-0 cursor-pointer"
                             onClick={() => {
                               setImages((prev) => prev.filter((p, idx) => idx !== i));
+                              setFiles((prev) => prev!.filter((f,idx) => idx !== i));
                             }}
                           />
                           <img
@@ -143,7 +154,7 @@ export default function New({}: Props) {
                     style={{ display: "none" }}
                     ref={fileInputRef as any}
                     accept="image/*"
-                    onChange={(e) => handleOnChange(e as any)}
+                    onChange={(e) => handleFileUpload(e as any)}
                     multiple
                   />
                 </form>
@@ -157,9 +168,11 @@ export default function New({}: Props) {
             <div className="flex-1">Title</div>
             <div className="flex-1">
               <input
+                name="title"
                 type="text"
                 className="border-b border-gray-200 w-full focus:border-cyan-400 outline-none"
                 placeholder="e.g. White COS Sweater"
+                onChange={handleItemData}
               />
             </div>
           </div>
@@ -170,6 +183,8 @@ export default function New({}: Props) {
               placeholder="e.g. only worn a few times, true to size"
               cols={30}
               rows={5}
+              name="description"
+              onChange={handleItemData}
             />
           </div>
         </div>
@@ -179,7 +194,8 @@ export default function New({}: Props) {
             <div className="flex-1">Category</div>
             <div className="flex-1">
               <select
-                name=""
+                name="category"
+                onChange={handleItemData}
                 id=""
                 defaultValue={"Select category"}
                 className="w-full outline-none border-b border-gray-200"
@@ -196,8 +212,9 @@ export default function New({}: Props) {
             <div className="flex-1">Brand</div>
             <div className="flex-1">
               <select
-                name=""
+                name="brand"
                 id=""
+                onChange={handleItemData}
                 defaultValue={"Select brand"}
                 className="w-full outline-none border-b border-gray-200"
               >
@@ -213,11 +230,11 @@ export default function New({}: Props) {
             <div className="flex-1">Condition</div>
             <div className="flex-1">
               <select
-                name=""
+                name="condition"
                 id=""
                 defaultValue={"Select condition"}
                 className="w-full outline-none border-b border-gray-200"
-                onChange={(e) => console.log(e.target.value)}
+                onChange={handleItemData}
               >
                 {conditionOptions.map((o, idx) => (
                   <option key={idx} value={o[0]} disabled={idx === 0 ? true : false}>
@@ -234,7 +251,7 @@ export default function New({}: Props) {
             <div className="flex-1">Price</div>
             <div className="flex-1">
               <input
-              name="price"
+                name="price"
                 type="text"
                 className="border-b border-gray-200 w-full focus:border-cyan-400 outline-none"
                 placeholder="$0.00"
@@ -245,23 +262,14 @@ export default function New({}: Props) {
           <div className=" flex flex-1 py-6 px-4 border-gray-200 border-b">
             <div className="flex-1"></div>
             <div className="flex-1  items-center flex">
-              <input
-                className="form-check-input appearance-none h-6 w-6 border border-gray-300 rounded-sm bg-white checked:bg-cyan-500 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                type="checkbox"
-                value=""
-                id="swap"
-              />
+              <input name="swap" type="checkbox" className="h-5 w-5 cursor-pointer mr-2" onChange={handleItemData} />
               <label htmlFor="swap">I'm interested in swapping this</label>
             </div>
           </div>
         </div>
         <div className="pb-10 flex justify-end">
           <Button value="Save Draft" btnClass=" border-cyan-500 bg-white border rounded p-2" />
-          <Button
-            value="Upload"
-            btnClass=" text-white border-cyan-500 ml-4 px-3 bg-cyan-500  border rounded p-2"
-            onClick={handleUpload}
-          />
+          <Button value="Upload" btnClass=" text-white border-cyan-500 ml-4 px-3 bg-cyan-500  border rounded p-2" onClick={handleUpload} />
         </div>
       </div>
     </div>

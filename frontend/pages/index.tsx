@@ -9,32 +9,27 @@ import { useAppDispatch } from "../features/hooks";
 import { setUser } from "../features/userSlice";
 
 const Home: NextPage = () => {
-  const dispatch = useAppDispatch()
-
-  // TODO: this on all pages
-  const userIsLoggedIn = async () => {
-    try {
-      const res = await fetch(`http://localhost:3001/auth/isLoggedIn`, {  credentials: 'include', });
-      const user = await res.json()
-      if(user.hasOwnProperty("id") && user.hasOwnProperty("provider")){
-        dispatch(setUser(user))
-      }
-    } catch (error) {
-      throw error;
-    }
-  };
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    userIsLoggedIn();
+    (async () => {
+      try {
+        const res = await fetch(`http://localhost:3001/auth/isLoggedIn`, { credentials: "include" });
+        const user = await res.json();
+        if (user.hasOwnProperty("id") && user.hasOwnProperty("provider")) {
+          dispatch(setUser(user));
+        }
+      } catch (error) {
+        throw error;
+      }
+    })();
   }, []);
-
-
 
   return (
     <div className="overflow-x-hidden ">
       {/* <Image src="/assets/carousel1.jpg" alt=""  width={20} height={20}/> */}
       {/* <Carousel /> */}
-      <Header/>
+      <Header />
       <HomeContent />
     </div>
   );
