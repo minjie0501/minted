@@ -4,6 +4,8 @@ import { XSquare, Plus } from "phosphor-react";
 import clsx from "clsx";
 import { brands, categories, conditionOptions } from "../../data/sellItemPageData";
 import { urlBase } from "../../utils/urlBase";
+import { useRouter } from "next/router";
+import { useAppSelector } from "../../features/hooks";
 
 type Props = {};
 
@@ -24,6 +26,9 @@ export default function New({}: Props) {
     price: "",
     swap: false,
   });
+  const user = useAppSelector(state => state.user.value)
+// TODO: add size
+  const router = useRouter()
 
 
   const fileInputRef = useRef<HTMLInputElement>();
@@ -83,7 +88,9 @@ export default function New({}: Props) {
         },
         body: JSON.stringify({ ...itemData, imgs: imgUrls }),
       });
-      const resBody = await res.json();
+      if(res.status === 201){
+        router.push(`/profile/${user.id}`)
+      }
     } catch (error) {
       console.log(error);
     }

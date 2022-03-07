@@ -1,25 +1,24 @@
-import React, { useState } from "react";
-import { useAppSelector, useAppDispatch } from "../../features/hooks";
-import { showModal } from "../../features/loginModalSlice";
-import { CreateAccountModal } from "./CreateAccountModal";
-import { SocialLoginModal } from "./SocialLoginModal";
+import React from "react";
 
-interface Props  {
-    username: String,
-    setUsername: (username:string) => void
-};
+interface Props {
+  username: String;
+  setUsername: (username: string) => void;
+}
 
-export function CreateUsernameModal({username,setUsername}: Props) {
+export function CreateUsernameModal({ username, setUsername }: Props) {
   const handleCreateUsername = async () => {
-    // TODO: error handling
-    await fetch(`http://localhost:3001/auth/autoRegister`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ username: username }),
-    });
+    try {
+      await fetch(`http://localhost:3001/auth/autoRegister`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ username: username }),
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -31,8 +30,7 @@ export function CreateUsernameModal({username,setUsername}: Props) {
       >
         <div className="relative px-4 w-full max-w-md h-full md:h-auto">
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <div className="flex justify-end p-2">
-            </div>
+            <div className="flex justify-end p-2"></div>
             <form className="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8" action="#">
               <div className="flex flex-col">
                 <h3 className="text-2xl font-medium text-gray-900 dark:text-white self-center">Add username</h3>

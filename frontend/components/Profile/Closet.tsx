@@ -2,14 +2,19 @@ import React from "react";
 import { Card } from "../HomeContentItems/Card";
 import { ContentTable } from "../HomeContentItems/ContentTable";
 
-type Props = {};
+interface Props  {
+  items: any[],
+  username:string
+};
 
-export function Closet({}: Props) {
+export function Closet({items,username}: Props) {
+
+  console.log(items[0])
   return (
     <div className=" w-full h-full pt-10">
       <ContentTable title="Featured Items" page="profile">
-        {Array.from({ length: 10 }).map((_, i) => (
-          <Card key={i} />
+        {items.map((item, idx) => (
+          <Card key={idx} username={username} item={item} />
         ))}
       </ContentTable>
     </div>

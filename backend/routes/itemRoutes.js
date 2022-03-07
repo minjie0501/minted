@@ -25,12 +25,24 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// Get items by seller id
+router.get("/seller/:id", async (req, res) => {
+  console.log(req.params.id)
+  try {
+    const items = await Item.find({sellerId: req.params.id}).populate('sellerId');
+    res.status(200).json(items);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
 // Create item
 router.post("/", async (req, res) => {
-  const item = await new Item({...req.body, sellerId: req.user.id});
+  const user = await User.find({providerId: req.user.id})
+  const item = await new Item({...req.body, sellerId: user.length > 0 ? user[0]._id : req.user.id});
   try {
     const newItem = await item.save();
-    res.status(200).json(newItem);
+    res.status(201).json(newItem);
   } catch (error) {
     res.json(error);
   }

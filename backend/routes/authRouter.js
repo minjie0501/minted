@@ -53,10 +53,11 @@ router.post("/autoRegister", async (req, res) => {
           req.user.provider === "github"
             ? req.user._json.name
             : req.user.provider === "facebook"
-            ? req.user._json.first_name + req.user._json.last_name
-            : req.user._json.given_name + req.user_json.family_name,
+            ? req.user._json.first_name + " " + req.user._json.last_name
+            : req.user._json.given_name + " " + req.user._json.family_name,
         username: req.body.username,
         email: req.user.provider === "github" ? req.user.emails[0].value : req.user._json.email,
+        profileImg: req.user.photos[0].value,
       });
       try {
         const newUser = await userData.save();

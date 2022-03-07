@@ -1,16 +1,23 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import { MapPin, Smiley, Clock, CheckCircle, PencilSimple } from "phosphor-react";
+import { urlBase } from "../../utils/urlBase";
 
-type Props = {};
+interface Props  {
+  userData: any
+};
 
-export function ProfileHeader({}: Props) {
+export function ProfileHeader({userData}: Props) {
+  console.log(userData)
+
+
+
   return (
     <div className="flex mb-8">
       <div className="">
         <div className="w-44 h-44 border-gray-800 border rounded-full relative m-4">
           <Image
-            src="https://lh3.googleusercontent.com/a/AATXAJxnKVq1UEYixQ1hfEoxzfjgvTqqSrlSSwSrtOIA=s96-c"
+            src={userData.profileImg}
             alt=""
             layout="fill"
             className="rounded-full border-red-200 border-2"
@@ -20,7 +27,7 @@ export function ProfileHeader({}: Props) {
       <div className=" flex-grow m-4">
         <div className=" flex-grow flex">
           <div className=" flex-grow flex flex-col">
-            <div className="text-2xl">username</div>
+            <div className="text-2xl">{userData.username}</div>
             <div className="">No reviews yet</div>
           </div>
           <div className=" flex items-center justify-center ">

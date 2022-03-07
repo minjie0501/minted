@@ -1,5 +1,13 @@
 import mongoose from "mongoose";
 
+
+const addressSchema = mongoose.Schema({
+  country: String,
+  city: String,
+  postCode: String,
+  houseNb: String
+});
+
 // TODO: validation
 const userSchema = new mongoose.Schema(
   {
@@ -8,7 +16,8 @@ const userSchema = new mongoose.Schema(
     },
     username: {
       type: String,
-      required: false,
+      required: true,
+      unique: true,
     },
     name: {
       type: String,
@@ -18,9 +27,9 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    address: {
+    address: addressSchema,
+    profileImg: {
       type: String,
-      required: false,
     },
     password: {
       type: String,

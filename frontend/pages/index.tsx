@@ -8,6 +8,7 @@ import { HomeContent } from "../components/HomeContent";
 import { CreateUsernameModal } from "../components/Modals/CreateUsername";
 import { useAppDispatch } from "../features/hooks";
 import { setUser } from "../features/userSlice";
+import { urlBase } from "../utils/urlBase";
 
 const Home: NextPage = () => {
   const dispatch = useAppDispatch();
@@ -15,17 +16,13 @@ const Home: NextPage = () => {
   const [username, setUsername] = useState("");
 
   useEffect(() => {
-    console.log(username);
-  }, [username]);
-
-  useEffect(() => {
     (async () => {
       try {
-        const res = await fetch(`http://localhost:3001/auth/isLoggedIn`, { credentials: "include" });
+        const res = await fetch(`${urlBase}/auth/isLoggedIn`, { credentials: "include" });
         const user = await res.json();
         if (user.hasOwnProperty("id") && user.hasOwnProperty("provider")) {
           dispatch(setUser(user));
-          const res = await fetch(`http://localhost:3001/auth/newUser`, { credentials: "include" });
+          const res = await fetch(`${urlBase}/auth/newUser`, { credentials: "include" });
           if (res.status === 204) {
             setCreateUsername(true);
           }

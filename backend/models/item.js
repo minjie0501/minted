@@ -32,7 +32,8 @@ const itemSchema = new mongoose.Schema(
       required: true,
     },
     sellerId: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref:"User",
       required: true,
     },
     createdAt: {

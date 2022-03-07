@@ -25,6 +25,19 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+
+// Get user by provider id
+router.get("/provider/:id", async (req, res) => {
+  try {
+    const user = await User.findOne({providerId: req.params.id});
+    res.status(200).json(user);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+
+
 // Create user
 router.post("/", async (req, res) => {
   const hashedPassword = await bcrypt.hash(req.body.password, 10);

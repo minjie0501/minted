@@ -12,14 +12,14 @@ export function HomeContent({}: Props) {
   return (
     <div className=" w-full h-full pt-10">
       <ContentTable title="Featured Items">
-        {Array.from({ length: nbOfCards }).map((_, i) => (
+        {/* {Array.from({ length: nbOfCards }).map((_, i) => (
           <Card key={i} />
-        ))}
+        ))} */}
       </ContentTable>
       <ContentTable title="Popular Brands">
-        {Array.from({ length: nbOfCards }).map((_, i) => (
+        {/* {Array.from({ length: nbOfCards }).map((_, i) => (
           <Card key={i} />
-        ))}
+        ))} */}
       </ContentTable>
     </div>
   );
