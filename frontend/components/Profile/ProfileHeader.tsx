@@ -6,7 +6,7 @@ type Props = {};
 
 export function ProfileHeader({}: Props) {
   return (
-    <div className="flex">
+    <div className="flex mb-8">
       <div className="">
         <div className="w-44 h-44 border-gray-800 border rounded-full relative m-4">
           <Image

@@ -76,10 +76,11 @@ export default function New({}: Props) {
 
       const res = await fetch(`${urlBase}/items`, {
         method: "POST",
+        credentials: "include",
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify({ ...itemData, imgs: imgUrls, sellerId: "62220daa2ac6bb6d36307ff2" }),
+        body: JSON.stringify({ ...itemData, imgs: imgUrls }),
       });
       const resBody = await res.json();
       console.log(resBody);

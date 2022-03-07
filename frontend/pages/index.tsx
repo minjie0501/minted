@@ -18,6 +18,7 @@ const Home: NextPage = () => {
         const user = await res.json();
         if (user.hasOwnProperty("id") && user.hasOwnProperty("provider")) {
           dispatch(setUser(user));
+          
         }
       } catch (error) {
         throw error;

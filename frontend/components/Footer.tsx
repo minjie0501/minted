@@ -6,7 +6,7 @@ type Props = {};
 
 export function Footer({}: Props) {
   return (
-      <div className="flex py-3 p-2 border-gray-200 border-t w-full text-sm m-auto xl:w-[1240px] flex-start text-gray-500">
+      <div className="flex py-3 p-2 border-gray-200 border-t w-full text-sm m-auto xl:w-[1240px] flex-start text-gray-500 flex-wrap">
         <Link href="#">
           <div className="pr-3 cursor-pointer hover:underline">Privay Policy</div>
         </Link>

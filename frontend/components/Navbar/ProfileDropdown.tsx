@@ -1,8 +1,8 @@
 import clsx from "clsx";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useAppDispatch } from "../../features/hooks";
+import { useAppDispatch, useAppSelector } from "../../features/hooks";
 import { setUser } from "../../features/userSlice";
 import { urlBase } from "../../utils/urlBase";
 import Link from "next/link";
@@ -10,7 +10,16 @@ import Link from "next/link";
 type Props = {};
 
 export function ProfileDropdown({}: Props) {
+  const user = useAppSelector((state) => state.user.value);
   const [open, setOpen] = useState(false);
+  const [userImg, setUserImg] = useState(
+    user.provider === "github"
+      ? user.photos[0].value
+      : user.provider === "facebook"
+      ? "https://image.shutterstock.com/image-vector/default-avatar-profile-social-media-260nw-1920331226.jpg"
+      : user.picture
+  );
+
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -30,8 +39,8 @@ export function ProfileDropdown({}: Props) {
   };
 
   const handleCloseOnClick = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   return (
     <div className="flex justify-center">
@@ -60,7 +69,7 @@ export function ProfileDropdown({}: Props) {
           >
             <div className="w-7 h-7 border-gray-800 border rounded-full relative">
               <Image
-                src="https://lh3.googleusercontent.com/a/AATXAJxnKVq1UEYixQ1hfEoxzfjgvTqqSrlSSwSrtOIA=s96-c"
+                src={userImg}
                 alt=""
                 layout="fill"
                 className="rounded-full border-red-200 border-2"
@@ -101,7 +110,7 @@ export function ProfileDropdown({}: Props) {
               </a>
             </li>
             <li>
-              <Link href={"/profile/dummyUserId"} >
+              <Link href={"/profile/dummyUserId"}>
                 <a
                   className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 "
                   href="#"
@@ -112,28 +121,44 @@ export function ProfileDropdown({}: Props) {
               </Link>
             </li>
             <li>
-              <a className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 " href="#" onClick={handleCloseOnClick}>
+              <a
+                className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 "
+                href="#"
+                onClick={handleCloseOnClick}
+              >
                 Settings
               </a>
             </li>
             <li>
-              <a className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 " href="#" onClick={handleCloseOnClick}>
+              <a
+                className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 "
+                href="#"
+                onClick={handleCloseOnClick}
+              >
                 Personalization
               </a>
             </li>
             <li>
-              <a className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 " href="#" onClick={handleCloseOnClick}>
+              <a
+                className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 "
+                href="#"
+                onClick={handleCloseOnClick}
+              >
                 <span className="flex justify-between items-center">
                   Balance <span className="text-gray-300 text-xs">$0.00</span>
                 </span>
               </a>
             </li>
             <li>
-              <a className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 " href="#" onClick={handleCloseOnClick}>
+              <a
+                className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 "
+                href="#"
+                onClick={handleCloseOnClick}
+              >
                 Invite friends
               </a>
             </li>
-            <li>  
+            <li>
               <a
                 className=" py-2 px-4 font-normal block w-full border-t whitespace-nowrap bg-transparent text-red-500 hover:bg-gray-100 "
                 href="#"

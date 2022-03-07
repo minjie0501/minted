@@ -27,8 +27,7 @@ router.get("/:id", async (req, res) => {
 
 // Create item
 router.post("/", async (req, res) => {
-  const user = await User.findById("61ba0cf01173c3fced0ee170"); //NOTE: the user will come from req.user later -> currently logged in user
-  const item = new Item(req.body);
+  const item = await new Item({...req.body, sellerId: req.user.id});
   try {
     const newItem = await item.save();
     res.status(200).json(newItem);
