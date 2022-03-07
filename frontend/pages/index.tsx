@@ -1,15 +1,22 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Carousel } from "../components/Carousel";
 import Header from "../components/Header/Header";
 import { HomeContent } from "../components/HomeContent";
+import { CreateUsernameModal } from "../components/Modals/CreateUsername";
 import { useAppDispatch } from "../features/hooks";
 import { setUser } from "../features/userSlice";
 
 const Home: NextPage = () => {
   const dispatch = useAppDispatch();
+  const [createUsername, setCreateUsername] = useState(false);
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    console.log(username);
+  }, [username]);
 
   useEffect(() => {
     (async () => {
@@ -18,7 +25,10 @@ const Home: NextPage = () => {
         const user = await res.json();
         if (user.hasOwnProperty("id") && user.hasOwnProperty("provider")) {
           dispatch(setUser(user));
-          
+          const res = await fetch(`http://localhost:3001/auth/newUser`, { credentials: "include" });
+          if (res.status === 204) {
+            setCreateUsername(true);
+          }
         }
       } catch (error) {
         throw error;
@@ -30,6 +40,7 @@ const Home: NextPage = () => {
     <div className="overflow-x-hidden ">
       {/* <Image src="/assets/carousel1.jpg" alt=""  width={20} height={20}/> */}
       {/* <Carousel /> */}
+      {createUsername && <CreateUsernameModal username={username} setUsername={setUsername} />}
       <Header />
       <HomeContent />
     </div>

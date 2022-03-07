@@ -12,13 +12,11 @@ type Props = {};
 export function ProfileDropdown({}: Props) {
   const user = useAppSelector((state) => state.user.value);
   const [open, setOpen] = useState(false);
-  const [userImg, setUserImg] = useState(
-    user.provider === "github"
-      ? user.photos[0].value
-      : user.provider === "facebook"
-      ? "https://image.shutterstock.com/image-vector/default-avatar-profile-social-media-260nw-1920331226.jpg"
-      : user.picture
-  );
+  const [userImg, setUserImg] = useState("https://image.shutterstock.com/image-vector/default-avatar-profile-social-media-260nw-1920331226.jpg");
+
+  useEffect(() => {
+    setUserImg(user.provider === "google" ? user.picture : user.photos[0].value)
+  },[])
 
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -68,12 +66,7 @@ export function ProfileDropdown({}: Props) {
             onClick={() => setOpen(!open)}
           >
             <div className="w-7 h-7 border-gray-800 border rounded-full relative">
-              <Image
-                src={userImg}
-                alt=""
-                layout="fill"
-                className="rounded-full border-red-200 border-2"
-              />
+              <Image src={userImg} alt="" layout="fill" className="rounded-full border-red-200 border-2" />
             </div>
             <svg
               aria-hidden="true"
@@ -110,7 +103,7 @@ export function ProfileDropdown({}: Props) {
               </a>
             </li>
             <li>
-              <Link href={"/profile/dummyUserId"}>
+              <Link href={`/profile/${user.id}`}>
                 <a
                   className=" py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 "
                   href="#"

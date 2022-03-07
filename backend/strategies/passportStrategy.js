@@ -30,6 +30,7 @@ export const githubStrategy = passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      scope: ['user:email'],
       callbackURL: `${url}/auth/github/callback`,
     },
     function (accessToken, refreshToken, profile, done) {
@@ -44,6 +45,7 @@ passport.use(
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
       callbackURL: `${url}/auth/facebook/callback`,
+      profileFields: ["emails", "picture","name"],
     },
     function (accessToken, refreshToken, profile, done) {
       return done(null, profile);

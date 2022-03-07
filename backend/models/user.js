@@ -3,21 +3,28 @@ import mongoose from "mongoose";
 // TODO: validation
 const userSchema = new mongoose.Schema(
   {
+    providerId: {
+      type: String,
+    },
+    username: {
+      type: String,
+      required: false,
+    },
     name: {
       type: String,
-      required: true,
+      required: false,
     },
     email: {
       type: String,
-      required: true,
+      required: false,
     },
     address: {
       type: String,
-      required: true
+      required: false,
     },
     password: {
       type: String,
-      required: true,
+      required: false,
     },
     createdAt: {
       type: Date,

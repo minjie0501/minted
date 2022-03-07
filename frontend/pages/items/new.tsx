@@ -25,6 +25,7 @@ export default function New({}: Props) {
     swap: false,
   });
 
+
   const fileInputRef = useRef<HTMLInputElement>();
 
   function readFileAsText(file: any) {
@@ -60,7 +61,7 @@ export default function New({}: Props) {
   };
 
   const handleUpload = async () => {
-    const imgUrls = [String]
+    const imgUrls:string[] = [];
     try {
       for (const file of files) {
         const data = new FormData();
@@ -71,7 +72,7 @@ export default function New({}: Props) {
           body: data,
         });
         const { url } = await uploadRes.json();
-        imgUrls.push(url)
+        imgUrls.push(url);
       }
 
       const res = await fetch(`${urlBase}/items`, {
@@ -83,7 +84,6 @@ export default function New({}: Props) {
         body: JSON.stringify({ ...itemData, imgs: imgUrls }),
       });
       const resBody = await res.json();
-      console.log(resBody);
     } catch (error) {
       console.log(error);
     }
@@ -125,7 +125,7 @@ export default function New({}: Props) {
                             className="absolute m-2 right-0 cursor-pointer"
                             onClick={() => {
                               setImages((prev) => prev.filter((p, idx) => idx !== i));
-                              setFiles((prev) => prev!.filter((f,idx) => idx !== i));
+                              setFiles((prev) => prev!.filter((f, idx) => idx !== i));
                             }}
                           />
                           <img
