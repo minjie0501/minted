@@ -2,10 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button } from "../../components/Button";
 import { XSquare, Plus } from "phosphor-react";
 import clsx from "clsx";
-import { brands, categories, conditionOptions } from "../../data/sellItemPageData";
+import { brands, categories, conditionOptions, sizes } from "../../data/sellItemPageData";
 import { urlBase } from "../../utils/urlBase";
 import { useRouter } from "next/router";
 import { useAppSelector } from "../../features/hooks";
+import convert from "image-file-resize";
 
 type Props = {};
 
@@ -24,12 +25,12 @@ export default function New({}: Props) {
     brand: "",
     condition: "",
     price: "",
+    size: "",
     swap: false,
   });
-  const user = useAppSelector(state => state.user.value)
-// TODO: add size
-  const router = useRouter()
-
+  const user = useAppSelector((state) => state.user.value);
+  // TODO: add size
+  const router = useRouter();
 
   const fileInputRef = useRef<HTMLInputElement>();
 
@@ -66,11 +67,20 @@ export default function New({}: Props) {
   };
 
   const handleUpload = async () => {
-    const imgUrls:string[] = [];
+    const imgUrls: string[] = [];
     try {
       for (const file of files) {
+
+        // TODO: this resize should not be fixed to keep aspect ratio of the original image
+        const resizedFile = await convert({
+          file: file,
+          width: 600,
+          height: 800,
+          type: "jpeg",
+        });
+
         const data = new FormData();
-        data.append("file", file);
+        data.append("file", resizedFile);
         data.append("upload_preset", "uploads");
         const uploadRes = await fetch("https://api.cloudinary.com/v1_1/dhpyqq46x/image/upload", {
           method: "POST",
@@ -88,8 +98,8 @@ export default function New({}: Props) {
         },
         body: JSON.stringify({ ...itemData, imgs: imgUrls }),
       });
-      if(res.status === 201){
-        router.push(`/profile/${user.id}`)
+      if (res.status === 201) {
+        router.push(`/profile/${user.id}`);
       }
     } catch (error) {
       console.log(error);
@@ -211,6 +221,24 @@ export default function New({}: Props) {
                 {categories.map((c, idx) => (
                   <option key={idx} value={c} disabled={idx === 0 ? true : false}>
                     {c}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className=" flex flex-1 py-6 px-4 border-gray-200 border-b">
+            <div className="flex-1">Size</div>
+            <div className="flex-1">
+              <select
+                name="size"
+                onChange={handleItemData}
+                id=""
+                defaultValue={"Select size"}
+                className="w-full outline-none border-b border-gray-200"
+              >
+                {sizes.map((s, idx) => (
+                  <option key={idx} value={s} disabled={idx === 0 || s === "" ? true : false}>
+                    {s}
                   </option>
                 ))}
               </select>

@@ -8,8 +8,8 @@ const router = express.Router();
 // Get all items
 router.get("/", async (req, res) => {
   try {
-    const items = await Item.find();
-    res.status(200).json(products);
+    const items = await Item.find().populate("sellerId");
+    res.status(200).json(items);
   } catch (error) {
     res.json(error);
   }
@@ -39,6 +39,7 @@ router.get("/seller/:id", async (req, res) => {
 // Create item
 router.post("/", async (req, res) => {
   const user = await User.find({providerId: req.user.id})
+  console.log(req.body)
   const item = await new Item({...req.body, sellerId: user.length > 0 ? user[0]._id : req.user.id});
   try {
     const newItem = await item.save();

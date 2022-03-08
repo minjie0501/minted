@@ -31,6 +31,9 @@ const itemSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    size:{
+      type:String
+    },
     sellerId: {
       type: mongoose.Schema.Types.ObjectId,
       ref:"User",

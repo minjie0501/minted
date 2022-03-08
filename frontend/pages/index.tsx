@@ -1,8 +1,5 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
+import type { GetServerSideProps, NextPage } from "next";
 import { useEffect, useState } from "react";
-import { Carousel } from "../components/Carousel";
 import Header from "../components/Header/Header";
 import { HomeContent } from "../components/HomeContent";
 import { CreateUsernameModal } from "../components/Modals/CreateUsername";
@@ -10,7 +7,7 @@ import { useAppDispatch } from "../features/hooks";
 import { setUser } from "../features/userSlice";
 import { urlBase } from "../utils/urlBase";
 
-const Home: NextPage = () => {
+const Home: NextPage = (items) => {
   const dispatch = useAppDispatch();
   const [createUsername, setCreateUsername] = useState(false);
   const [username, setUsername] = useState("");
@@ -39,9 +36,17 @@ const Home: NextPage = () => {
       {/* <Carousel /> */}
       {createUsername && <CreateUsernameModal username={username} setUsername={setUsername} />}
       <Header />
-      <HomeContent />
+      <HomeContent items={items as any}/>
     </div>
   );
 };
 
 export default Home;
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const res = await fetch(`${urlBase}/items`);
+  const items = await res.json();
+  return {
+    props: { items },
+  };
+};

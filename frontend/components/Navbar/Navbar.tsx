@@ -42,10 +42,7 @@ export function Navbar({}: Props) {
       <div className="">
         <div className="h-full">
           <div className="m-auto w-full xl:w-[1240px] px-5 xl:px-0 ">
-            <nav
-              className="flex justify-between items-center p-2 text-cyan-500 text-xl relative font-bold font-mono"
-              role="navigation"
-            >
+            <nav className="flex justify-between items-center p-2 text-cyan-500 text-xl relative font-bold font-mono" role="navigation">
               <Link href="/">
                 <div className=" flex text-2xl justify-center items-center cursor-pointer">
                   <SketchLogo size={28} weight="bold" />
@@ -55,13 +52,7 @@ export function Navbar({}: Props) {
               <SearchBar />
 
               <div className="px-4 cursor-pointer md:hidden" onClick={() => setHamburgerOpen(!hamburgerOpen)}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </div>
@@ -82,10 +73,7 @@ export function Navbar({}: Props) {
                 )}
                 <Link href="/items/new">
                   <div>
-                    <Button
-                      value="Sell now"
-                      btnClass="bg-white text-white ml-2 border-cyan-500 border rounded p-1 text-sm bg-cyan-500"
-                    />
+                    <Button value="Sell now" btnClass="bg-white text-white ml-2 border-cyan-500 border rounded p-1 text-sm bg-cyan-500" />
                   </div>
                 </Link>
               </div>
