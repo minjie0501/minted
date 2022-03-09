@@ -8,9 +8,6 @@ interface Props  {
 };
 
 export function ProfileHeader({userData}: Props) {
-  console.log(userData)
-
-
 
   return (
     <div className="flex mb-8">

@@ -27,7 +27,6 @@ router.get("/:id", async (req, res) => {
 
 // Get items by seller id
 router.get("/seller/:id", async (req, res) => {
-  console.log(req.params.id)
   try {
     const items = await Item.find({sellerId: req.params.id}).populate('sellerId');
     res.status(200).json(items);
@@ -39,7 +38,6 @@ router.get("/seller/:id", async (req, res) => {
 // Create item
 router.post("/", async (req, res) => {
   const user = await User.find({providerId: req.user.id})
-  console.log(req.body)
   const item = await new Item({...req.body, sellerId: user.length > 0 ? user[0]._id : req.user.id});
   try {
     const newItem = await item.save();

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Button } from "../../components/Button";
 import { XSquare, Plus } from "phosphor-react";
 import clsx from "clsx";
@@ -7,6 +7,8 @@ import { urlBase } from "../../utils/urlBase";
 import { useRouter } from "next/router";
 import { useAppSelector } from "../../features/hooks";
 import convert from "image-file-resize";
+import FadeLoader from "react-spinners/FadeLoader";
+import { css } from "@emotion/react";
 
 type Props = {};
 
@@ -18,6 +20,7 @@ type Props = {};
 export default function New({}: Props) {
   const [images, setImages] = useState<Array<File>>([]);
   const [files, setFiles] = useState<Array<File>>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const [itemData, setItemData] = useState({
     title: "",
     description: "",
@@ -28,6 +31,13 @@ export default function New({}: Props) {
     size: "",
     swap: false,
   });
+
+  const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: red;
+  `;
+
   const user = useAppSelector((state) => state.user.value);
   // TODO: add size
   const router = useRouter();
@@ -55,7 +65,10 @@ export default function New({}: Props) {
     const fls = [] as any;
     const selectedImages = (e.target as HTMLInputElement).files;
     for (let i = 0; i < selectedImages!.length; i++) {
-      if ((e.target as HTMLInputElement).files![i] && (e.target as HTMLInputElement).files![i].type.substr(0, 5) === "image") {
+      if (
+        (e.target as HTMLInputElement).files![i] &&
+        (e.target as HTMLInputElement).files![i].type.substr(0, 5) === "image"
+      ) {
         imgs.push(await readFileAsText((e.target as HTMLInputElement).files![i]));
         fls.push((e.target as HTMLInputElement).files![i]);
       }
@@ -67,10 +80,10 @@ export default function New({}: Props) {
   };
 
   const handleUpload = async () => {
+    setLoading(true);
     const imgUrls: string[] = [];
     try {
       for (const file of files) {
-
         // TODO: this resize should not be fixed to keep aspect ratio of the original image
         const resizedFile = await convert({
           file: file,
@@ -281,7 +294,6 @@ export default function New({}: Props) {
             </div>
           </div>
         </div>
-
         <div className="border-gray-200 border bg-white my-6">
           <div className=" flex flex-1 py-6 px-4 border-gray-200 border-b">
             <div className="flex-1">Price</div>
@@ -304,8 +316,21 @@ export default function New({}: Props) {
           </div>
         </div>
         <div className="pb-10 flex justify-end">
-          <Button value="Save Draft" btnClass=" border-cyan-500 bg-white border rounded p-2" />
-          <Button value="Upload" btnClass=" text-white border-cyan-500 ml-4 px-3 bg-cyan-500  border rounded p-2" onClick={handleUpload} />
+          <div
+            className={clsx("flex items-center", {
+              hidden: loading,
+            })}
+          >
+            <Button value="Save Draft" btnClass=" border-cyan-500 bg-white border rounded p-2" />
+            <Button
+              value="Upload"
+              btnClass="text-white border-cyan-500 ml-4 px-3 bg-cyan-500 border rounded p-2"
+              onClick={handleUpload}
+            />
+          </div>
+          <div className={clsx("flex items-center", { hidden: !loading, block: loading })}>
+            <FadeLoader color={"rgb(34 211 238)"} loading={true} css={override} />
+          </div>
         </div>
       </div>
     </div>

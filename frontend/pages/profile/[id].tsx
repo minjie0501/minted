@@ -29,12 +29,12 @@ export default function Profile({ id }: Props) {
   return (
     <>
       {render ? (
-        <div className="m-auto w-full xl:w-[1240px] p-2 h-full border-green-200 border flex flex-col">
+        <div className="m-auto w-full xl:w-[1240px] p-2 h-full  flex flex-col">
           <ProfileHeader userData={userData} />
           <ProfileBody userData={userData}/>
         </div>
       ) : (
-        <div className="m-auto w-full xl:w-[1240px] p-2 h-screen border-green-200 border flex flex-col"></div>
+        <div className="m-auto w-full xl:w-[1240px] p-2 h-screen  flex flex-col"></div>
       )}
     </>
   );
